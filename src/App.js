@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { lgObj } from "./objs";
+import Album from "./Album";
+import { useState } from "react";
+import Quiz from "./Quiz";
 function App() {
+  const [openQuiz, setOpenQuiz] = useState(false);
+
+  const handleQuiz = () => {
+    setOpenQuiz(true);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App-header">
+        <h2>Sam, please choose your favorite album</h2>
+        <p>(choose veeery wisely... or lose it all.)</p>
+      </div>
+      <div className="albumContainer">
+        {lgObj.map((a) => (
+          <Album
+            handleQuiz={handleQuiz}
+            openQuiz={openQuiz}
+            setOpenQuiz={setOpenQuiz}
+            title={a.title}
+            image={a.image}
+            key={a.title}
+          />
+        ))}
+      </div>
+      {openQuiz && <Quiz setOpenQuiz={setOpenQuiz} />}
     </div>
   );
 }
